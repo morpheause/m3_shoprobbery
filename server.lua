@@ -1,3 +1,8 @@
+ESX = nil
+robberies = {}
+
+TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+
 ESX.RegisterServerCallback('m3:shoprobbery:copCount', function(source, cb)
 	local xPlayers = ESX.GetPlayers()
 
