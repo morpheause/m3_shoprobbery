@@ -1,6 +1,6 @@
 -------------------
 Config = {}
-Config.UseM3Dispatch = true -- dont touch this
+Config.UseM3Dispatch = false -- dont touch this
 
 Config.NeededCops = 0
 
