@@ -1,3 +1,4 @@
+ESX = nil
 shopid = nil
 robstarted = false
 robx = nil
@@ -5,7 +6,18 @@ roby = nil
 robz = nil
 
 Citizen.CreateThread(function()
-	spawnSafes()
+    while ESX == nil do
+        TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+        Citizen.Wait(0)
+    end
+
+    while ESX.GetPlayerData().job == nil do
+        Citizen.Wait(10)
+    end
+
+    PlayerData = ESX.GetPlayerData()
+
+    spawnSafes()
 end)
 
 local safes = {
