@@ -32,7 +32,7 @@ end)
 RegisterServerEvent('m3:shoprobbery:robbedUpdate')
 AddEventHandler('m3:shoprobbery:robbedUpdate', function(id)
     if id ~= nil then
-        MySQL.Async.execute("UPDATE m3_robshops SET robtime = @robtime", {['@shopid'] = id, ['robtime'] =  os.time()}) --  WHERE shopid = @shopid
+        MySQL.Async.execute("UPDATE m3_robshops SET robtime = @robtime WHERE shopid = @shopid", {['@shopid'] = id, ['robtime'] =  os.time()})
     end
 end)
 
