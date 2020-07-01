@@ -121,11 +121,11 @@ function openSafe(id, x, y, z)
 			if IsPedArmed(ped, 4) then
 				ESX.TriggerServerCallback('m3:shoprobbery:getTime', function(time)
 					ESX.TriggerServerCallback('m3:shoprobbery:getShops', function(shops)
-						for i=1, #shops, 1 do
-							local remainingtime = time - shops[i].robtime
-							if time - shops[i].robtime <= Config.RobBetweenSecond then
+						-- for i=1, #shops, 1 do
+							local remainingtime = time - shops[shopid].robtime
+							if time - shops[shopid].robtime <= Config.RobBetweenSecond then
 								TriggerEvent('mythic_notify:client:SendAlert', { type = 'error', text = 'Bu dükkanın soyulabilmesi için ' .. math.floor((Config.RobBetweenSecond - remainingtime) / 60) .. ' dakika gerekiyor!' })
-							elseif time - shops[i].robtime >= Config.RobBetweenSecond then
+							elseif time - shops[shopid].robtime >= Config.RobBetweenSecond then
 								robstarted = true
 								robx = x
 								roby = y
@@ -140,7 +140,7 @@ function openSafe(id, x, y, z)
 								StartMinigame(SafeRewards)
 								shopid = id
 							end
-						end
+						-- end
 					end, id)
 				end)
 			else
