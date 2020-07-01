@@ -121,6 +121,7 @@ function openSafe(id, x, y, z)
 			if IsPedArmed(ped, 4) then
 				ESX.TriggerServerCallback('m3:shoprobbery:getTime', function(time)
 					ESX.TriggerServerCallback('m3:shoprobbery:getShops', function(shops)
+						shopid = id
 						-- for i=1, #shops, 1 do
 							local remainingtime = time - shops[shopid].robtime
 							if time - shops[shopid].robtime <= Config.RobBetweenSecond then
@@ -138,7 +139,6 @@ function openSafe(id, x, y, z)
 								TriggerServerEvent('m3:shoprobbery:robbedUpdate', shopid)
 								SafeRewards = math.random(Config.SafeRewardMin, Config.SafeRewardMax)
 								StartMinigame(SafeRewards)
-								shopid = id
 							end
 						-- end
 					end, id)
