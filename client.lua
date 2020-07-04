@@ -21,26 +21,26 @@ Citizen.CreateThread(function()
 end)
 
 local safes = {
-	[1] = {number = 1, x = 380.74, y = 331.94, z = 103.5, heading = 255.47},
-	[2] = {number = 2, x = 2550.23, y = 387.34, z = 108.65, heading = 359.25},
-	[3] = {number = 3, x = -3047.88, y = 588.16, z = 7.94, heading = 20.34},
-	[4] = {number = 4, x = -1478.97, y = -374.36, z = 39.08, heading = 228.54},
-	[5] = {number = 5, x = 1395.49, y = 3612.94, z = 34.93, heading = 22.18},
-	[6] = {number = 6, x = -2959.5, y = 387.78, z =13.96 , heading = 171.58},
-	[7] = {number = 7, x = 2674.36, y = 3288.0, z = 55.22, heading = 339.44},
-	[8] = {number = 8, x = -42.76, y = -1749.36, z = 29.44, heading = 320.15},
-	[9] = {number = 9, x = 1160.77, y = -314.03, z = 69.18, heading = 10.81},
-	[10] = {number = 10, x = -708.14, y = -904.05, z =19.17 , heading = 5.29},
-	[11] = {number = 11, x = -1828.23, y = 799.83, z = 138.1, heading = 53.63},
-	[12] = {number = 12, x = 1706.87, y = 4919.76, z = 42.0, heading = 237.41},
-	[13] = {number = 13, x = 1960.75, y = 3748.67, z = 32.27, heading = 304.34},
-	[14] = {number = 14, x = 1126.26, y = -980.84, z = 45.35, heading = 9.13},
-	[15] = {number = 15, x = 30.45, y = -1339.88, z = 29.44 , heading = 269.79},
-	[16] = {number = 16, x = -1383.59, y = -630.25, z = 30.12, heading = 213.19},
-	[17] = {number = 17, x = 545.07, y = 2663.47, z = 42.1, heading = 96.45},
-	[18] = {number = 18, x = -3249.02, y = 1006.04, z = 12.78, heading = 0.76},
-	[19] = {number = 19, x = 1168.51, y = 2718.37, z = 37.10, heading = 271.45},
-	[20] = {number = 20, x = 1736.66, y = 6419.02, z = 34.96, heading = 247.6},
+	[1] = {number = 1, x = 380.74, y = 331.94, z = 103.5, heading = 255.47},	
+	[2] = {number = 4, x = -1478.97, y = -374.36, z = 39.08, heading = 228.54},
+	[3] = {number = 5, x = 1395.49, y = 3612.94, z = 34.93, heading = 22.18},
+	[4] = {number = 6, x = -2959.5, y = 387.78, z =13.96 , heading = 171.58},	
+	[5] = {number = 8, x = -42.76, y = -1749.36, z = 29.44, heading = 320.15},
+	[6] = {number = 9, x = 1160.77, y = -314.03, z = 69.18, heading = 10.81},
+	[7] = {number = 10, x = -708.14, y = -904.05, z =19.17 , heading = 5.29},
+	[8] = {number = 14, x = 1126.26, y = -980.84, z = 45.35, heading = 9.13},
+	[9] = {number = 15, x = 30.45, y = -1339.88, z = 29.44 , heading = 269.79},
+	[10] = {number = 19, x = 1168.51, y = 2718.37, z = 37.10, heading = 271.45},
+	[11] = {number = 20, x = 1736.66, y = 6419.02, z = 34.96, heading = 247.6},
+	-- [16] = {number = 16, x = -1383.59, y = -630.25, z = 30.12, heading = 213.19},
+	-- [17] = {number = 17, x = 545.07, y = 2663.47, z = 42.1, heading = 96.45},
+	-- [18] = {number = 18, x = -3249.02, y = 1006.04, z = 12.78, heading = 0.76},
+	-- [11] = {number = 11, x = -1828.23, y = 799.83, z = 138.1, heading = 53.63},
+	-- [12] = {number = 12, x = 1706.87, y = 4919.76, z = 42.0, heading = 237.41},
+	-- [13] = {number = 13, x = 1960.75, y = 3748.67, z = 32.27, heading = 304.34},
+	-- [7] = {number = 7, x = 2674.36, y = 3288.0, z = 55.22, heading = 339.44},
+	-- [2] = {number = 2, x = 2550.23, y = 387.34, z = 108.65, heading = 359.25},
+	-- [3] = {number = 3, x = -3047.88, y = 588.16, z = 7.94, heading = 20.34},
 }
 
 function spawnSafes()
@@ -121,24 +121,45 @@ function openSafe(id, x, y, z)
 			if IsPedArmed(ped, 4) then
 				ESX.TriggerServerCallback('m3:shoprobbery:getTime', function(time)
 					ESX.TriggerServerCallback('m3:shoprobbery:getShops', function(shops)
-						shopid = id
 						-- for i=1, #shops, 1 do
-							local remainingtime = time - shops[shopid].robtime
-							if time - shops[shopid].robtime <= Config.RobBetweenSecond then
-								TriggerEvent('mythic_notify:client:SendAlert', { type = 'error', text = 'Bu dükkanın soyulabilmesi için ' .. math.floor((Config.RobBetweenSecond - remainingtime) / 60) .. ' dakika gerekiyor!' })
-							elseif time - shops[shopid].robtime >= Config.RobBetweenSecond then
-								robstarted = true
-								robx = x
-								roby = y
-								robz = z
-								if Config.M3Dispatch then
-									-- wip
-								else
-									TriggerServerEvent('m3:shoprobbery:notifyPolice')
-								end
-								TriggerServerEvent('m3:shoprobbery:robbedUpdate', shopid)
-								SafeRewards = math.random(Config.SafeRewardMin, Config.SafeRewardMax)
-								StartMinigame(SafeRewards)
+							local remainingtime = time - shops.robtime
+							if time - shops.robtime <= 7200 then
+								TriggerEvent('mythic_notify:client:SendAlert', { type = 'error', text = 'Bu dükkanın soyulabilmesi için ' .. math.floor((7200 - remainingtime) / 60) .. ' dakika gerekiyor!' })
+							elseif time - shops.robtime >= 7200 then
+								-- local data = exports['m3_base']:getOsTime()
+                            	-- if data.hour > data.min or data.hour < data.max then
+									exports['mythic_progbar']:Progress({
+										name = "startrob",
+										duration = Config.StartSearchTime,
+										label = 'Kasa kilidi kurcalanıyor...',
+										useWhileDead = false,
+										canCancel = false,
+										controlDisables = {
+											disableMovement = true,
+											disableCarMovement = true,
+											disableMouse = false,
+											disableCombat = true,
+										},
+									}, function(cancelled)
+										if not cancelled then
+											robstarted = true
+											robx = x
+											roby = y
+											robz = z
+											if Config.UseM3Dispatch then
+												local randomcode = math.random(1000, 9999)
+												TriggerServerEvent('m3:dispatch:notify', 'Market Soygunu', 'Anonim', randomcode, 'Yok', GetEntityCoords(ped))
+											else
+												TriggerServerEvent('m3:shoprobbery:notifyPolice')
+											end
+											SafeRewards = math.random(Config.SafeRewardMin, Config.SafeRewardMax)
+											StartMinigame(SafeRewards)
+											shopid = id
+										end
+									end)
+								-- else
+								-- 	exports['mythic_notify']:SendAlert('error', 'Şu anda bunu yapamazsın!', 5000)
+								-- end
 							end
 						-- end
 					end, id)
@@ -151,6 +172,7 @@ function openSafe(id, x, y, z)
 		end
 	end)
 end
+
 
 Citizen.CreateThread(function()
 	while true do
@@ -200,11 +222,11 @@ AddEventHandler('m3:shoprobbery:blipRobCopC', function(x, y, z)
 end)
 
 function lockFinished(rewards)
+	TriggerServerEvent('m3:shoprobbery:robbedUpdate', shopid)
 	TriggerServerEvent('m3:shoprobbery:giveMoney', rewards)
 end
 
 -- jam minigame
-
 function StartMinigame(rewards)
 
 	local txd = CreateRuntimeTxd("JSCTextureDict")
@@ -279,9 +301,9 @@ function HandleMinigame(rewards)
 	local correctGuesses = {}
 
 	lockNumbers[1] = 1
-	lockNumbers[2] = math.random(					 45.0, 					359.0)
-	lockNumbers[3] = math.random(lockNumbers[2] -	719.0, lockNumbers[2] - 405.0)
-	lockNumbers[4] = math.random(lockNumbers[3] +  	 45.0, lockNumbers[3] + 359.0)
+	lockNumbers[2] = math.random(				  45.0, 				359.0)
+	lockNumbers[3] = math.random(lockNumbers[2] - 719.0, lockNumbers[2] - 405.0)
+	lockNumbers[4] = math.random(lockNumbers[3] + 45.0, lockNumbers[3] + 359.0)
 
 	-----------------------
 	-- REDO LOCK NUMBERS --
@@ -321,10 +343,10 @@ function HandleMinigame(rewards)
 
 		local lockVal = math.floor(LockRotation)
 
-		if correctCount > 1 and 	correctCount < 5 and lockVal + (Config.LockTolerance * 3.60) < lockNumbers[correctCount - 1] and lockNumbers[correctCount - 1] < lockNumbers[correctCount] then 
+		if correctCount > 1 and correctCount < 5 and lockVal + (Config.LockTolerance * 3.60) < lockNumbers[correctCount - 1] and lockNumbers[correctCount - 1] < lockNumbers[correctCount] then 
 			EndMinigame(false)
 			MinigameOpen = false
-		elseif correctCount > 1 and 	correctCount < 5 and lockVal - (Config.LockTolerance * 3.60) > lockNumbers[correctCount - 1] and lockNumbers[correctCount - 1] > lockNumbers[correctCount] then 
+		elseif correctCount > 1 and correctCount < 5 and lockVal - (Config.LockTolerance * 3.60) > lockNumbers[correctCount - 1] and lockNumbers[correctCount - 1] > lockNumbers[correctCount] then 
 			EndMinigame(false)
 			MinigameOpen = false
 		elseif correctCount > 4 then
@@ -364,42 +386,9 @@ function EndMinigame(won, rewards)
 
 		PlaySoundFrontend(SoundID, "safe_door_open", "SAFE_CRACK_SOUNDSET", true)
 		lockFinished(rewards)--
-		TriggerEvent('mythic_notify:client:SendAlert', { type = 'inform', text = 'Kasa açıldı!'})
-		
+		TriggerEvent('mythic_notify:client:SendAlert', { type = 'inform', text = 'Kasa açıldı!'})	
 	else	
 		PlaySoundFrontend(SoundID, "tumbler_reset", "SAFE_CRACK_SOUNDSET", true)
 		TriggerEvent('mythic_notify:client:SendAlert', { type = 'error', text = 'Kasayı açamadın!'})
-	end
-	shopid = nil
-	robstarted = false
-	robx = nil
-	roby = nil
-	robz = nil
-end
-
-function OpenSafeDoor()
-	local objs = ESX.Game.GetObjects()
-	local doorHash = JUtils.GetHashKey("bkr_prop_biker_safedoor_01a")
-	for k,v in pairs(objs) do
-		if (GetEntityModel(v)%0x100000000) == doorHash then 
-
-			local doorHeading = GetEntityPhysicsHeading(v)
-			local doorPosition = GetEntityCoords(v)
-
-			SetEntityCollision(v, false, false)
-			FreezeEntityPosition(v, false)
-
-			local targetHeading = doorHeading + 150
-
-			while doorHeading + 150 > GetEntityHeading(v) do		
-				SetEntityHeading(v, GetEntityHeading(v) + 0.3)
-				SetEntityCoords(v, doorPosition, false, false, false, false)
-				Citizen.Wait(0)
-			end
-
-			if not (GetEntityHeading(v) >= targetHeading) then 
-				SetEntityHeading(v, targetHeading)
-			end
-		end
 	end
 end
