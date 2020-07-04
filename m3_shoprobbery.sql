@@ -24,6 +24,7 @@ INSERT INTO `m3_robshops` (shopid, robtime) VALUES
 	(13, 0),
 	(14, 0),
 	(15, 0),
+	(16, 0),
 	(17, 0),
 	(18, 0),
 	(19, 0),
