@@ -390,5 +390,11 @@ function EndMinigame(won, rewards)
 	else	
 		PlaySoundFrontend(SoundID, "tumbler_reset", "SAFE_CRACK_SOUNDSET", true)
 		TriggerEvent('mythic_notify:client:SendAlert', { type = 'error', text = 'Kasayı açamadın!'})
+		shopid = nil
+		robstarted = false
+		robx = nil
+		roby = nil
+		robz = nil
+		bliptimer = 5
 	end
 end
